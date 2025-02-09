@@ -1,6 +1,6 @@
 {
   "name": "update-pfp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "start": "node dist/index.js",
     "build": "ncc build src/main.js -o dist",
@@ -12,7 +12,7 @@
     "discord.js-selfbot-v13": "^3.5.1"
   },
   "devDependencies": {
-      "@vercel/ncc": "^0.38.3",
-      "jest": "^29.7.0"
+    "@vercel/ncc": "^0.38.3",
+    "jest": "^29.7.0"
   }
 }
