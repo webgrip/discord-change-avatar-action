@@ -54,6 +54,9 @@ jobs:
 
       - name: Tag "v1" if major=1
         run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
           VERSION=$(node -p "require('./package.json').version")
           echo "New version: $VERSION"
           MAJOR=$(echo "$VERSION" | cut -d. -f1)
