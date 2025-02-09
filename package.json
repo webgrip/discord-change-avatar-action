@@ -1,6 +1,6 @@
 {
   "name": "discord-change-avatar-action",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "scripts": {
     "start": "node dist/index.js",
     "build": "ncc build src/main.js -o dist",
