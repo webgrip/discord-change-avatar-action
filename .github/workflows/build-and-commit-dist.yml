@@ -51,3 +51,16 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
+
+      - name: Tag "v1" if major=1
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "New version: $VERSION"
+          MAJOR=$(echo "$VERSION" | cut -d. -f1)
+          if [ "$MAJOR" = "1" ]; then
+            echo "Tagging current commit as 'v1' for version $VERSION"
+            git tag -fa v1 -m "chore: v1 tag for $VERSION [skip ci]"
+            git push origin v1 --force
+          else
+            echo "Not major version 1, skipping v1 tag."
+          fi
