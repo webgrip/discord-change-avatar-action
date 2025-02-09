@@ -78,7 +78,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v1
+          tag_name: |
+            v1
+            v${{ steps.get_version.outputs.version }}
           release_name: "v1 Release ${{ steps.get_version.outputs.version }}"
           body: "Automated release for version ${{ steps.get_version.outputs.version }}."
           draft: false
