@@ -63,6 +63,8 @@ jobs:
           if [ "$MAJOR" = "1" ]; then
             echo "Tagging current commit as 'v1' for version $VERSION"
             git tag -fa v1 -m "chore: v1 tag for $VERSION [skip ci]"
+            # Set the remote URL with credentials so push succeeds
+            git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
             git push origin v1 --force
           else
             echo "Not major version 1, skipping v1 tag."
