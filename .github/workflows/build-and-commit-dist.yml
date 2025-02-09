@@ -52,20 +52,32 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
 
+      - name: Extract version
+        id: get_version
+        run: echo "version=$(node -p \"require('./package.json').version\")" >> $GITHUB_OUTPUT
+
       - name: Tag "v1" if major=1
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
-          VERSION=$(node -p "require('./package.json').version")
-          echo "New version: $VERSION"
-          MAJOR=$(echo "$VERSION" | cut -d. -f1)
+          echo "New version: ${{ steps.get_version.outputs.version }}"
+          MAJOR=$(echo "${{ steps.get_version.outputs.version }}" | cut -d. -f1)
           if [ "$MAJOR" = "1" ]; then
             echo "Tagging current commit as 'v1' for version $VERSION"
             git tag -fa v1 -m "chore: v1 tag for $VERSION [skip ci]"
-            # Set the remote URL with credentials so push succeeds
             git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
             git push origin v1 --force
           else
             echo "Not major version 1, skipping v1 tag."
           fi
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1
+          release_name: "v1 Release ${{ steps.get_version.outputs.version }}"
+          body: "Automated release for version ${{ steps.get_version.outputs.version }}."
+          draft: false
+          prerelease: false

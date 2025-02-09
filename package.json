@@ -1,5 +1,5 @@
 {
-  "name": "update-pfp",
+  "name": "discord-change-avatar-action",
   "version": "1.0.4",
   "scripts": {
     "start": "node dist/index.js",
