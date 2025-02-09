@@ -1,0 +1,10 @@
+name: "Update Discord avatar / profile picture"
+author: "Ryan Grippeling <ryan@webgrip.nl>"
+runs:
+  using: "node20"
+  main: "dist/index.js"
+
+inputs:
+  imagePath:
+    description: "Path to the image that should be used as the new profile picture"
+    required: true
